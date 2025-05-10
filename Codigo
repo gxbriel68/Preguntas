@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juego de Preguntas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+    }
+    .answer {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Pregunta Aleatoria</h1>
+    <p id="question">Haz clic para comenzar</p>
+    <div id="options"></div>
+    <button onclick="generateQuestion()">Nueva Pregunta</button>
+    <div class="answer" id="answer"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "¿Cuál es la capital de Francia?",
+        options: ["Madrid", "Berlín", "París", "Roma"],
+        answer: "París"
+      },
+      {
+        q: "¿Quién escribió 'Cien años de soledad'?",
+        options: ["Pablo Neruda", "Mario Vargas Llosa", "Gabriel García Márquez", "Jorge Luis Borges"],
+        answer: "Gabriel García Márquez"
+      },
+      {
+        q: "¿Cuál es el planeta más grande del sistema solar?",
+        options: ["Tierra", "Marte", "Júpiter", "Saturno"],
+        answer: "Júpiter"
+      },
+      {
+        q: "¿Cuántos continentes hay en la Tierra?",
+        options: ["5", "6", "7", "8"],
+        answer: "7"
+      },
+      {
+        q: "¿Cuál es el idioma más hablado del mundo?",
+        options: ["Inglés", "Español", "Chino mandarín", "Árabe"],
+        answer: "Chino mandarín"
+      }
+    ];
+
+    function generateQuestion() {
+      const random = questions[Math.floor(Math.random() * questions.length)];
+      document.getElementById("question").textContent = random.q;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      document.getElementById("answer").textContent = "";
+      random.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => {
+          document.getElementById("answer").textContent =
+            opt === random.answer ? "¡Correcto!" : "Incorrecto. La respuesta correcta es: " + random.answer;
+        };
+        optionsDiv.appendChild(btn);
+      });
+    }
+  </script>
+</body>
+</html>
